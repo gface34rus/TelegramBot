@@ -33,12 +33,9 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
         this.taskRepository = taskRepository;
     }
 
-    @Autowired
-    private TelegramBot telegramBot;
-
     @PostConstruct
     public void init() {
-        telegramBot.setUpdatesListener(this);
+        bot.setUpdatesListener(this);
     }
 
 
@@ -48,7 +45,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
             String text = update.message().text();
 
             logger.info("Processing update text: {}", text);
-            if (isTextExist(update)) {
+            if (!isTextExist(update)) {
                 logger.warn("Not expected message: {}", text);
                 return;
             }
@@ -91,7 +88,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
 
 
     private boolean isTextExist(Update update) {
-        return update.message() != null && update.message().text().isBlank();
+        return update.message() != null && !update.message().text().isBlank();
     }
 
     private String getChatId(Update update) {

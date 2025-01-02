@@ -1,5 +1,7 @@
+-- liquibase formatted sql
 
-CREATE TABLE task
+-- changeset ipesterev:1
+CREATE TABLE notification_task
 (
     id                INT PRIMARY KEY,
     chat_id           BIGINT       NOT NULL,
